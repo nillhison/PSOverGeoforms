@@ -22,6 +22,7 @@ class PointResults {
             
             return &smt;
         };
+        
     private:
         struct Point* pt;
         struct T* gf;
