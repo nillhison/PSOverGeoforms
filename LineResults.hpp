@@ -1,12 +1,14 @@
 #pragma once
 
+#include <cmath>
+
 #include "GeoTypes.hpp"
 
 class LineResults {
     
     public:
     
-        LineResults(struct Line* line, struct Plan* plan) {
+        LineResults(struct Line& line, struct Plan& plan) {
             ln = line;
             pl = plan;
         }
@@ -23,8 +25,8 @@ class LineResults {
         
     private:
     
-        struct Line* ln;
-        struct Plan* pl;
+        struct Line ln;
+        struct Plan pl;
         
         struct Line proj;
         struct Line smt;

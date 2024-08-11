@@ -6,10 +6,8 @@ struct Coordinates {
     int x, y, z;
 };
 
-struct Point : struct Coordinates {};
-
 struct Line {
-    struct Point p;
+    struct Coordinates p;
     struct Coordinates d;
 };
 
@@ -25,4 +23,9 @@ enum Operation {
     LineOverPlan
     NotAllowed,
     Exit
+};
+
+enum ResultType {
+    PointData,
+    LineData
 };

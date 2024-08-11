@@ -8,11 +8,12 @@ Operation requestOperation() {
     
     char request;
     
-    std::cout << "Choose an operation:" << std::endl;
+    std::cout << "-------------------------" << std::endl;
     std::cout << "(1) Point Over Line" << std::endl;
     std::cout << "(2) Point Over Plan" << std::endl;
     std::cout << "(3) Line Over Plan" << std::endl;
     std::cout << "(4) Exit" << std::endl;
+    std::cout << "Choose an operation: ";
     std::cin >> request;
     
     switch(request) {
@@ -29,33 +30,33 @@ bool newSection() {
     
     char otherSection = 0;
     
-    while(toupper(otherSection) != Y || toupper(otherSection) != N) {
+    while(toupper(otherSection) != 'Y' || toupper(otherSection) != 'N') {
         std::cout << "Perform another operation (Y/N)?: ";
         std::cin >> otherSection;
     
-        if(otherSection) == Y) {
+        if(otherSection == Y) {
             return true;
         } else if(otherSection == N) {
             return false;
         } else std::cout << "Invalid Option! Try again" << std::endl;
 }
 
-void reqPointData(struct Point* pt) {
+void reqPointData(struct Coordinates& pt) {
     reqCoordinates("point", pt);
 }
 
-void reqLineData(struct Line* ln) {
-    reqCoordinates("point", ln.(&p));
-    reqCoordinates("director line vector", ln.(&d));
+void reqLineData(struct Line& ln) {
+    reqCoordinates("point", ln.p);
+    reqCoordinates("director line vector", ln.d);
 }
 
-void reqPlanData(struct Plan* pl) {
-    reqCoordinates("normal plan vector", pl.(&n))
+void reqPlanData(struct Plan& pl) {
+    reqCoordinates("normal plan vector", pl.n)
     std::cout << "Input the plan constant value: ";
-    std::cin >> pl->k;
+    std::cin >> pl.k;
 }
 
-void reqCoordinates(std::string entityName, struct Coordinates* entity) {
+void reqCoordinates(std::string entityName, struct Coordinates& entity) {
     
     std::string axes[AXES];
     
@@ -76,20 +77,20 @@ void reqCoordinates(std::string entityName, struct Coordinates* entity) {
     
     std::cout << "Input the " << entityName << " coordinates: " << std::endl;
     std::cout << "\t" << axes[0] << ": ";
-    std::cin >> entity->x;
+    std::cin >> entity.x;
     std::cout << "\t" << axes[1] << ": ";
-    std::cin >> entity->y;
+    std::cin >> entity.y;
     std::cout << "\t" << axes[2] << ": ";
-    std::cin >> entity->z;
+    std::cin >> entity.z;
     
 }
 
 template<typename T>
-void exhibitResults(T* projection, T* simetric) {
+void exhibitResults(T* projection, T* simetric, ResultType res) {
     
-    switch(typeid(*T).name()) {
+    switch(res) {
         
-        case Point:
+        case PointData :
         
             std::cout << "Point projection coordinates: " << std::endl;
             std::cout << "\tX: " << projection->x << std::endl;
@@ -100,8 +101,10 @@ void exhibitResults(T* projection, T* simetric) {
             std::cout << "\tX: " << simetric->x << std::endl;
             std::cout << "\tY: " << simetric->y << std::endl;
             std::cout << "\tZ: " << simetric->z << std::endl;
+            
+            break;
         
-        case Line:
+        case LineData :
         
             std::cout << "Line projection parametric equations: " << std::endl;
             std::cout << "\tX = " << projection->p->x << " + " << projection->d->x << "t" << std::endl;
@@ -111,7 +114,9 @@ void exhibitResults(T* projection, T* simetric) {
             std::cout << "Simetric line parametric equations: " << std::endl;
             std::cout << "\tX = " << simetric->p->x << " + " << simetric->d->x << "t" << std::endl;
             std::cout << "\tY = " << simetric->p->y << " + " << simetric->d->y << "t" << std::endl;
-            std::cout << "\tZ = " << simetric->p->z << " + " << simetric->d->z << "t" << std::endl;
+            std::cout << "\tZ = " << simetric->p->z << " + " << simetric->d->z << "t" << std::endl
+            
+            break;
             
     };
     

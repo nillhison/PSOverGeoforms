@@ -18,12 +18,12 @@ int main() {
                 if(!newSection()) operation = Exit;
             break;
                 
-            case Operation::PointOverPlan :
+            case PointOverPlan :
                 runPOP();
                 if(!newSection()) operation = Exit;
             break;
             
-            case Operation::LineOverPlan :
+            case LineOverPlan :
                 runLOP();
                 if(!newSection()) operation = Exit;
             break;
@@ -34,5 +34,7 @@ int main() {
         };
 
     };
+    
+    return 0;
     
 }
