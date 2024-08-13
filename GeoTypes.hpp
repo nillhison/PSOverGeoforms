@@ -45,13 +45,9 @@ enum RelativePosition {
     
     /** Relative positions between the plane and the line;
      *  Used to filter the algorithm used to calculate
-     *  the line projection and its simetric **/
+     *  the line projection and its symmetric **/
      
     PARALLEL,
     PERPENDICULAR,
     OBLIQUE
 };
-
-static const unsigned int AXES = 3;
-
-static const Coordinates NULL_VECTOR = { 0, 0, 0 };

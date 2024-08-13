@@ -14,7 +14,7 @@ class PointResults {
             gf = geoform;
         };
         
-        Coordinates* projOnLine() {
+        Coordinates& projOnLine() {
             
             tnum = (gf.d.x)*(pt.x - gf.p.x) + (gf.d.y)*(pt.y - gf.p.y) + (gf.d.z)*(pt.z - gf.p.z);
 
@@ -26,7 +26,7 @@ class PointResults {
             pjP.y = gf.p.y + t*(gf.d.y);
             pjP.z = gf.p.z + t*(gf.d.z);
             
-            return &proj;
+            return pjP;
         };
         
         Coordinates& projOnPlane() {
@@ -44,7 +44,7 @@ class PointResults {
             return pjP;
         };
         
-        Coordinates& simetric() {
+        Coordinates& symmetric() {
             
             smP.x = 2*(pjP.x) - pt.x;
             smP.y = 2*(pjP.y) - pt.y;

@@ -65,7 +65,9 @@ bool newSection() {
 }
 
 void reqCoordinates(std::string entityName, Coordinates& entity) {
-    
+
+    const unsigned int AXES = 3;
+
     std::string axes[AXES];
     
     if(entityName == "point" || entityName == "point on the line") {
@@ -108,7 +110,7 @@ void reqPlaneData(Plane& pl) {
 }
 
 template<typename T>
-void exhibitResults(T& projection, T& simetric) {
+void exhibitResults(T& projection, T& symmetric) {
     
     if(typeid(T).name() == typeid(Coordinates).name()) {
         
@@ -117,10 +119,10 @@ void exhibitResults(T& projection, T& simetric) {
         std::cout << "\tY: " << projection.y << std::endl;
         std::cout << "\tZ: " << projection.z << std::endl;
                 
-        std::cout << "Coordinates for the simetic point: " << std::endl;
-        std::cout << "\tX: " << simetric.x << std::endl;
-        std::cout << "\tY: " << simetric.y << std::endl;
-        std::cout << "\tZ: " << simetric.z << std::endl;
+        std::cout << "Coordinates for the symmetric point: " << std::endl;
+        std::cout << "\tX: " << symmetric.x << std::endl;
+        std::cout << "\tY: " << symmetric.y << std::endl;
+        std::cout << "\tZ: " << symmetric.z << std::endl;
         
     } else if(typeid(T).name() == typeid(Line).name()) {
         
@@ -129,10 +131,11 @@ void exhibitResults(T& projection, T& simetric) {
         std::cout << "\tY = " << projection.p.y << " + " << projection.d.y << "t" << std::endl;
         std::cout << "\tZ = " << projection.p.z << " + " << projection.d.z << "t" << std::endl;
                 
-        std::cout << "Parametric equations for the simetic line: " << std::endl;
-        std::cout << "\tX = " << simetric.p.x << " + " << simetric.d.x << "t" << std::endl;
-        std::cout << "\tY = " << simetric.p.y << " + " << simetric.d.y << "t" << std::endl;
-        std::cout << "\tZ = " << simetric.p.z << " + " << simetric.d.z << "t" << std::endl;
+        std::cout << "Parametric equations for the symmetric line: " << std::endl;
+        std::cout << "\tX = " << symmetric.p.x << " + " << symmetric.d.x << "t" << std::endl;
+        std::cout << "\tY = " << symmetric.p.y << " + " << symmetric.d.y << "t" << std::endl;
+        std::cout << "\tZ = " << symmetric.p.z << " + " << symmetric.d.z << "t" << std::endl;
+        
     };
 
 }
@@ -142,13 +145,13 @@ void logAboutRelativePosition(RelativePosition relPos) {
     switch(relPos) {
         case PERPENDICULAR: 
             std::cout << "The given line is perpendicular to the plane" << std::endl;
-            std::cout << "No projection or simetric line are possible" << std::endl;
+            std::cout << "No projection or symmetric line are possible" << std::endl;
             break;
         case PARALLEL:
-            std::cout << "The given line is parallel to the plane" << std::endl;
+            std::cout << "The given line is parallel to the plane. Results are shown bellow" << std::endl;
             break;
         case OBLIQUE:
-            std::cout << "The given line is oblique to the plane" << std::endl;
+            std::cout << "The given line is oblique to the plane. . Results are shown bellow" << std::endl;
             break;
     };
 

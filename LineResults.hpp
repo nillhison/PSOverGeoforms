@@ -11,6 +11,7 @@ class LineResults {
     public:
     
         LineResults(Line& line, Plane& plane) {
+
             ln = line;
             pl = plane;
             
@@ -22,27 +23,34 @@ class LineResults {
         
         Line& projOnPlane() {
             
-            pjL = buildLineGivenTwoPoints(pjPoints[0], pjPoints[1]);
-            
+            buildLineGivenTwoPoints(pjPoints[0], pjPoints[1]);
             return pjL;
         }
-        
-        Line& simetric() {
-            
-            smL = buildLineGivenTwoPoints(smPointss[2], smPoints[3]);
-            
+
+        Line& symmetric() {
+
+            buildLineGivenTwoPoints(smPoints[2], smPoints[3]);
             return smL;
         }
-        
-        Line& buildLineGivenTwoPoints(Coordinates& p1, Coordinates& p2) {
-            
+
+        void buildLineGivenTwoPoints(Coordinates& p1, Coordinates& p2) {
+
+            pjL.p.x = p1.x;
+            pjL.p.y = p1.y;
+            pjL.p.z = p1.z;
+
+            pjL.d.x = p2.x - p1.x;
+            pjL.d.y = p2.y - p1.y;
+            pjL.d.z = p2.z - p1.z;
+
         }
         
         void renderPSPoints() {
             
+            // Using t = 0 (this is the given point on the line itself)
             PointResults<Plane> rp1(ln.p, pl);
                 
-            // Using t = 1 to render a second point p2 in the Line
+            // Using t = 1 to render a second point p2 on the Line
             Coordinates p2 = {
                 ln.p.x + ln.d.x,
                 ln.p.y + ln.d.y,
@@ -51,15 +59,13 @@ class LineResults {
                 
             PointResults<Plane> rp2(p2, pl);
             
-            static const std::vector<Coordinates> pjPoints = {
-                rp1.projOnPlane(),
-                rp2.projOnPlane()
-            };
-            
-            static const std::vector<Coordinates> smPoints = {
-                rp1.simetric(),
-                rp2.simetric()
-            };
+            // Store the points projections on the plan into a vector
+            pjPoints.push_back(rp1.projOnPlane());
+            pjPoints.push_back(rp2.projOnPlane());
+
+            // Store the symmetric points into a vector
+            smPoints.push_back(rp1.symmetric());
+            smPoints.push_back(rp2.symmetric());
             
         }
         
@@ -91,7 +97,12 @@ class LineResults {
         
         Line pjL;
         Line smL;
-        
+
+        std::vector<Coordinates> pjPoints;
+        std::vector<Coordinates> smPoints;
+
         RelativePosition relPos;
-    
+
+        const Coordinates NULL_VECTOR = {0, 0, 0};
+        
 };
