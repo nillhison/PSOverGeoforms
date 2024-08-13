@@ -5,36 +5,44 @@
 
 int main() {
     
-    static Operation operation = Initial;
+    static Operation operation;
         
-    while(operation != Exit) {
+    while(operation != EXIT_APP) {
         
-        operation = requestOperation();
+        retrieveOperation(operation);
         
         switch(operation) {
             
-            case PointOverLine :
-                runPOL();
-                if(!newSection()) operation = Exit;
+            case INITIAL : continue;
+            
+            case POINT_OVER_LINE :
+            
+                runPointOverLine();
+                
+                if(!newSection()) operation = EXIT_APP;
+                
             break;
                 
-            case PointOverPlan :
-                runPOP();
-                if(!newSection()) operation = Exit;
+            case POINT_OVER_PLANE :
+            
+                runPointOverPlane();
+                
+                if(!newSection()) operation = EXIT_APP;
+                
             break;
             
-            case LineOverPlan :
-                runLOP();
-                if(!newSection()) operation = Exit;
+            case LINE_OVER_PLANE :
+            
+                runLineOverPlane();
+                
+                if(!newSection()) operation = EXIT_APP;
+                
             break;
             
-            case NotAllowed:
-                std::cout << "Invalid Option! Try Again!" << std::endl;
-            break;
+            case EXIT_APP : return 0;
+            
         };
 
     };
-    
-    return 0;
     
 }

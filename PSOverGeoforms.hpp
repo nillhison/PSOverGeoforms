@@ -5,53 +5,57 @@
 #include "LineResults.hpp"
 #include "Dialogs.hpp"
 
-void runPOL() {
+void runPointOverLine() {
     
-    struct Coordinates* point = new Point;
-    struct Line* line = new Line;
+    Coordinates* point = new Coordinates;
+    Line* line = new Line;
     
     reqPointData(*point);
     reqLineData(*line);
     
-    PointResults pointResults(*point, *line);
+    PointResults<Line> pointResults(*point, *line);
     
-    exhibitResults(pointResults.projOnLine(), pointResults.simetric(), PointData);
+    exhibitResults<Point>(pointResults.projOnLine(), pointResults.simetric());
     
-    delete Point;
-    delete Line;
+    delete point;
+    delete line;
     
 }
 
-void runPOP() {
+void runPointOverPlane() {
     
-    struct Coordinates* point = new Point;
-    struct Plan* plan = new Plan;
+    Coordinates* point = new Coordinates;
+    Plane* plane = new Plane;
     
     reqPointData(*point);
-    reqPlanData(*plan);
+    reqPlaneData(*plane);
     
-    PointResults pointResults(*point, *plan);
+    PointResults<Plane> pointResults(*point, *plane);
     
-    exhibitResults(pointResults.projOnPlan(), pointResults.simetric(), PointData);
+    exhibitResults<Coordinates>(pointResults.projOnPlane(), pointResults.simetric());
     
-    delete Point;
-    delete Plan;
+    delete point;
+    delete plane;
     
 }
 
-void runLOP() {
+void runLineOverPlane() {
     
-    struct Line* line = new Line;
-    struct Plan* plan = new Plan;
+    Line* line = new Line;
+    Plane* plane = new Plane;
     
     reqLineData(*line);
-    reqPlanData(*plan);
+    reqPlaneData(*plane);
     
-    PointResults lineResults(*line, *plan);
+    LineResults lineResults(*line, *plane);
     
-    exhibitResults(lineResults.projOnPlan(), lineResults.simetric(), LineData);
+    logAboutRelativePosition(lineResults.relativePosition());
     
-    delete Line;
-    delete Plan;
+    if(lineResults.relativePosition() != PERPENDICULAR) {
+        exhibitResults<Line>(lineResults.projOnPlane(), lineResults.simetric());
+    }
+    
+    delete line;
+    delete plane;
     
 }
