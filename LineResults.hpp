@@ -29,7 +29,7 @@ class LineResults {
 
         Line& symmetric() {
 
-            buildLineGivenTwoPoints(smPoints[2], smPoints[3]);
+            buildLineGivenTwoPoints(smPoints[0], smPoints[1]);
             return smL;
         }
 
@@ -81,7 +81,7 @@ class LineResults {
         
             
             if(escalarProduct == 0) return PARALLEL;
-            else if (vectorialProduct = NULL_VECTOR) return PERPENDICULAR;
+            else if (vectorialProduct == NULL_VECTOR) return PERPENDICULAR;
             else return OBLIQUE;
             
         }

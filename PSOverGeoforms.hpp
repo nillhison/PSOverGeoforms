@@ -15,7 +15,7 @@ void runPointOverLine() {
     
     PointResults<Line> pointResults(*point, *line);
     
-    exhibitResults<Point>(pointResults.projOnLine(), pointResults.symmetric());
+    exhibitResults<Coordinates>(pointResults.projOnLine(), pointResults.symmetric());
     
     delete point;
     delete line;

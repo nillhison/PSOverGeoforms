@@ -151,7 +151,7 @@ void logAboutRelativePosition(RelativePosition relPos) {
             std::cout << "The given line is parallel to the plane. Results are shown bellow" << std::endl;
             break;
         case OBLIQUE:
-            std::cout << "The given line is oblique to the plane. . Results are shown bellow" << std::endl;
+            std::cout << "The given line is oblique to the plane. Results are shown bellow" << std::endl;
             break;
     };
 

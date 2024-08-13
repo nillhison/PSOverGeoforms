@@ -9,7 +9,7 @@ The math around this problem is quite simple and involves basic concepts on anal
 
 The environment that is being used for this development is the Visual Studio Code in Windows 11 paralleling the MSVC compiler, specifically its C++ 20 version.
 
-For the checking results, consider using [GeoGebra 3D](https://www.geogebra.org/3d).
+To check the results, consider using [GeoGebra 3D](https://www.geogebra.org/3d).
 
 ### 🚫 Warning
 **Don’t try to compile this code!**
