@@ -9,17 +9,14 @@ class PointResults {
     
     public:
     
-        PointResults(Coordinates& point, T& geoform) {
+        PointResults(Coordinates& point, T& geoform) : pt(point), gf(geoform) {
             pt = point;
             gf = geoform;
         };
         
         Coordinates& projOnLine() {
-            
             tnum = (gf.d.x)*(pt.x - gf.p.x) + (gf.d.y)*(pt.y - gf.p.y) + (gf.d.z)*(pt.z - gf.p.z);
-
             tden = pow(gf.d.x, 2) + pow(gf.d.y, 2) + pow(gf.d.z, 2);
-
             t = tnum/tden;
 
             pjP.x = gf.p.x + t*(gf.d.x);
@@ -30,11 +27,8 @@ class PointResults {
         };
         
         Coordinates& projOnPlane() {
-            
             tnum = -(gf.k)*((gf.n.x)*pt.x + (gf.n.y)*pt.y + (gf.n.z)*pt.z);
-
             tden = pow(gf.n.x, 2) + pow(gf.n.y, 2) + pow(gf.n.z, 2);
-
             t = tnum/tden;
 
             pjP.x = pt.x + t*(gf.n.x);
@@ -45,7 +39,6 @@ class PointResults {
         };
         
         Coordinates& symmetric() {
-            
             smP.x = 2*(pjP.x) - pt.x;
             smP.y = 2*(pjP.y) - pt.y;
             smP.z = 2*(pjP.z) - pt.z;
@@ -56,11 +49,7 @@ class PointResults {
     private:
         
         T& gf;
-        Coordinates pt;
-        
-        Coordinates pjP;
-        Coordinates smP;
-        
+        Coordinates& pt, pjP, smP;
         double t, tnum, tden;
     
 };

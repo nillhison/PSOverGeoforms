@@ -1,10 +1,18 @@
 #pragma once
 
+#include <tuple>
+#include <string_view>
+
 struct Coordinates {
     
     // Might be coordinates for a point or a vector
     
     double x, y, z;
+    
+    bool operator==(const Coordinates& cd) const {
+        return std::tie(x, y, z) == std::tie(cd.x, cd.y, cd.z);
+    }
+    
 };
 
 struct Line {
@@ -33,6 +41,13 @@ struct Plane {
     Coordinates n; // Normal vector of the plane
 };
 
+constexpr std::string_view locus[] {
+    {"point"},                        // locus[0]
+    {"point on the line"},            // locus[1]
+    {"direction vector of the line"}, // locus[2]
+    {"normal vector of the plane"}    // locus[3]
+};
+
 enum Operation {
     INITIAL,
     POINT_OVER_LINE,
@@ -43,7 +58,7 @@ enum Operation {
 
 enum RelativePosition {
     
-    /** Relative positions between the plane and the line;
+    /** Relative positions between the plane and the line.
      *  Used to filter the algorithm used to calculate
      *  the line projection and its symmetric **/
      
@@ -51,3 +66,6 @@ enum RelativePosition {
     PERPENDICULAR,
     OBLIQUE
 };
+
+const unsigned int AXES = 3;
+const Coordinates NULL_VECTOR = {0, 0, 0};
