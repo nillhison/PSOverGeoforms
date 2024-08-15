@@ -1,7 +1,7 @@
 ## PSOverGeoforms
 <div align="center">
   <img src="img/example.png" alt="Alt text" width="300px">
-  <p style="font-size:11px;color:gray;">Example of a line and points with its projections and symmetrics over a plane</p>
+  <p style="font-size:9px;color:gray;font-style: italic;">Example of a line and points with its projections and symmetrics over a plane</p>
 </div>
 
 This is a terminal application used to perform the calculation of the projection and the symmetric of a:
