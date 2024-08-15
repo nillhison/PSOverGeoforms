@@ -15,7 +15,7 @@ void runPointOverLine() {
     
     PointResults<Line> pointResults(*point, *line);
     
-    exhibitResults<Coordinates>(pointResults.projOnLine(), pointResults.symmetric());
+    writePointResults(pointResults.projOnLine(), pointResults.symmetric());
     
     delete point;
     delete line;
@@ -32,7 +32,7 @@ void runPointOverPlane() {
     
     PointResults<Plane> pointResults(*point, *plane);
     
-    exhibitResults<Coordinates>(pointResults.projOnPlane(), pointResults.symmetric());
+    writePointResults(pointResults.projOnPlane(), pointResults.symmetric());
     
     delete point;
     delete plane;
@@ -52,7 +52,7 @@ void runLineOverPlane() {
     logAboutRelativePosition(lineResults.relativePosition());
     
     if(lineResults.relativePosition() != PERPENDICULAR) {
-        exhibitResults<Line>(lineResults.projOnPlane(), lineResults.symmetric());
+        writeLineResults(lineResults.projOnPlane(), lineResults.symmetric());
     }
     
     delete line;

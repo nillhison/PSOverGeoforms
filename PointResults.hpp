@@ -27,7 +27,7 @@ class PointResults {
         };
         
         Coordinates& projOnPlane() {
-            tnum = -(gf.k)*((gf.n.x)*pt.x + (gf.n.y)*pt.y + (gf.n.z)*pt.z);
+            tnum = -(gf.k) - ((gf.n.x)*pt.x + (gf.n.y)*pt.y + (gf.n.z)*pt.z);
             tden = pow(gf.n.x, 2) + pow(gf.n.y, 2) + pow(gf.n.z, 2);
             t = tnum/tden;
 

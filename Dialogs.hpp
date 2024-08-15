@@ -1,9 +1,9 @@
 #pragma once
 
+#include <limits>
 #include <cctype>
 #include <iostream>
 #include <typeinfo>
-#include <functional>
 
 #include "GeoTypes.hpp"
 
@@ -35,6 +35,7 @@ Operation retrieveOperation(Operation& op) {
                     op = EXIT_APP;
                 } else {
                     std::cout << "Invalid Option! Try again" << std::endl;
+                    clearEntries();
                     ++attempts;
                 }
         }
@@ -59,11 +60,19 @@ bool newSection() {
             newSection = true;
         } else if(otherSection == 'N') {
             newSection = false;
-        } else std::cout << "Invalid Option! Try again" << std::endl;
+        } else {
+            std::cout << "Invalid Option! Try again" << std::endl;
+            clearEntries();
+        }
     }
     
     return newSection;
     
+}
+
+void clearEntries() {
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
 void reqCoordinates(std::string_view locusName, Coordinates& locusCd) {
@@ -108,41 +117,29 @@ void reqPlaneData(Plane& pl) {
     std::cout << "Enter the plane constant value: ";
     std::cin >> pl.k;
 }
-
-template<typename T>
-void exhibitResults(T& projection, T& symmetric) {
     
-    std::function<void()> writeResults;
-    
-    if(typeid(T) == typeid(Coordinates)) {
-        writeResults = [&]() {
-            std::cout << "Coordinates for the point projection: " << std::endl;
-            std::cout << "\tX: " << projection.x << std::endl;
-            std::cout << "\tY: " << projection.y << std::endl;
-            std::cout << "\tZ: " << projection.z << std::endl;
+void writePointResults(Coordinates& projection, Coordinates& symmetric) {
+    std::cout << "Coordinates for the point projection: " << std::endl;
+    std::cout << "\tX: " << projection.x << std::endl;
+    std::cout << "\tY: " << projection.y << std::endl;
+    std::cout << "\tZ: " << projection.z << std::endl;
                     
-            std::cout << "Coordinates for the symmetric point: " << std::endl;
-            std::cout << "\tX: " << symmetric.x << std::endl;
-            std::cout << "\tY: " << symmetric.y << std::endl;
-            std::cout << "\tZ: " << symmetric.z << std::endl;
-        };
-        
-    } else if(typeid(T) == typeid(Line)) {
-        writeResults = [&]() {
-            std::cout << "Parametric equations for the projection of the line: " << std::endl;
-            std::cout << "\tX = " << projection.p.x << " + " << projection.d.x << "t" << std::endl;
-            std::cout << "\tY = " << projection.p.y << " + " << projection.d.y << "t" << std::endl;
-            std::cout << "\tZ = " << projection.p.z << " + " << projection.d.z << "t" << std::endl;
-                    
-            std::cout << "Parametric equations for the symmetric line: " << std::endl;
-            std::cout << "\tX = " << symmetric.p.x << " + " << symmetric.d.x << "t" << std::endl;
-            std::cout << "\tY = " << symmetric.p.y << " + " << symmetric.d.y << "t" << std::endl;
-            std::cout << "\tZ = " << symmetric.p.z << " + " << symmetric.d.z << "t" << std::endl;
-        };
-    }
-    
-    writeResults();
+    std::cout << "Coordinates for the symmetric point: " << std::endl;
+    std::cout << "\tX: " << symmetric.x << std::endl;
+    std::cout << "\tY: " << symmetric.y << std::endl;
+    std::cout << "\tZ: " << symmetric.z << std::endl;
+}
 
+void writeLineResults(Line& projection, Line& symmetric) {
+    std::cout << "Parametric equations for the projection of the line: " << std::endl;
+    std::cout << "\tX = " << projection.p.x << " + " << projection.d.x << "t" << std::endl;
+    std::cout << "\tY = " << projection.p.y << " + " << projection.d.y << "t" << std::endl;
+    std::cout << "\tZ = " << projection.p.z << " + " << projection.d.z << "t" << std::endl;
+                    
+    std::cout << "Parametric equations for the symmetric line: " << std::endl;
+    std::cout << "\tX = " << symmetric.p.x << " + " << symmetric.d.x << "t" << std::endl;
+    std::cout << "\tY = " << symmetric.p.y << " + " << symmetric.d.y << "t" << std::endl;
+    std::cout << "\tZ = " << symmetric.p.z << " + " << symmetric.d.z << "t" << std::endl;
 }
 
 void logAboutRelativePosition(RelativePosition relPos) {

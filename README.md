@@ -1,4 +1,6 @@
 ## PSOverGeoforms
+![Example of a line and points with its projections and symmetrics over a plane](img/example.png)
+
 This is a terminal application used to perform the calculation of the projection and the symmetric of a:
 
 - given point over a line;

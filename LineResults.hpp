@@ -20,23 +20,23 @@ class LineResults {
         }
         
         Line& projOnPlane() {
-            buildLineGivenTwoPoints(pjPoints[0], pjPoints[1]);
+            buildLineGivenTwoPoints(pjPoints[0], pjPoints[1], pjL);
             return pjL;
         }
 
         Line& symmetric() {
-            buildLineGivenTwoPoints(smPoints[0], smPoints[1]);
+            buildLineGivenTwoPoints(smPoints[0], smPoints[1], smL);
             return smL;
         }
 
-        void buildLineGivenTwoPoints(Coordinates& p1, Coordinates& p2) {
-            pjL.p.x = p1.x;
-            pjL.p.y = p1.y;
-            pjL.p.z = p1.z;
+        void buildLineGivenTwoPoints(Coordinates& p1, Coordinates& p2, Line& line) {
+            line.p.x = p1.x;
+            line.p.y = p1.y;
+            line.p.z = p1.z;
 
-            pjL.d.x = p2.x - p1.x;
-            pjL.d.y = p2.y - p1.y;
-            pjL.d.z = p2.z - p1.z;
+            line.d.x = p2.x - p1.x;
+            line.d.y = p2.y - p1.y;
+            line.d.z = p2.z - p1.z;
         }
         
         void renderPSPoints() {
