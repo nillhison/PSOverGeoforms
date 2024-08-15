@@ -1,14 +1,14 @@
 ## PSOverGeoforms
-<p align="center">
-  <img src="img/example.png" alt="example" width="300px">
-  <figcaption style="font-style: italic; font-size: 10">Example of a line and points with its projections and symmetrics over a plane</figcaption>
-</p>
-
-This is a terminal application used to perform the calculation of the projection and the symmetric of a:
+This is a **terminal application** used to perform the calculation of the projection and the symmetric of a:
 
 - given point over a line;
 - given point over a plane; or a 
 - given line over a plane.
+
+<figure align="center">
+  <img src="img/example.png" alt="example" width="300px">
+  <figcaption style="font-style: italic; font-size: 10">Example of a line and points with its projections and symmetrics over a plane</figcaption>
+</figure>
 
 The math around this problem is quite simple and involves basic concepts on analytical geometry. However, although the same task could’ve been achieved with a way easier and simpler code, some complexity was added in this case just for testing purposes.
 
