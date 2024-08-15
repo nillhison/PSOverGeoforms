@@ -5,10 +5,10 @@ This is a **terminal application** used to perform the calculation of the projec
 - given point over a plane; or a 
 - given line over a plane.
 
-<figure style="text-align: center; font-style: italic; font-size: 10px;">
+<div style="text-align: center; font-style: italic; font-size: 10px;">
   <img src="img/example.png" alt="example" width="300px">
-  <figcaption>Example of a line and points with its projections and symmetrics over a plane</figcaption>
-</figure>
+  <p style="margin-top: 0px;">Example of a line and points with its projections and symmetrics over a plane</p>
+</div>
 
 The math around this problem is quite simple and involves basic concepts on analytical geometry. However, although the same task could’ve been achieved with a way easier and simpler code, some complexity was added in this case just for testing purposes.
 
