@@ -1,8 +1,5 @@
 ## PSOverGeoforms
-<div align="center">
-  <img src="img/example.png" alt="Alt text" width="300px">
-  <figcaption style="font-size:9px;color:gray;font-style:italic;">Example of a line and points with its projections and symmetrics over a plane</figcaption>
-</div>
+![_Example of a line and points with its projections and symmetrics over a plane_](img/example.png)
 
 This is a terminal application used to perform the calculation of the projection and the symmetric of a:
 
