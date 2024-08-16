@@ -1,6 +1,5 @@
 ## PSOverGeoforms
-
-<img align="center" src="img/example.png" alt="example" width="350px">
+<p align="center"><img src="img/example.png" alt="example" width="350px"></p>
 
 This is a **terminal application** used to perform the calculation of the projection and the symmetric of a:
 
