@@ -7,6 +7,11 @@
 
 #include "GeoTypes.hpp"
 
+void clearEntries() {
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
 Operation retrieveOperation(Operation& op) {
     
     op = INITIAL;
@@ -68,11 +73,6 @@ bool newSection() {
     
     return newSection;
     
-}
-
-void clearEntries() {
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
 void reqCoordinates(std::string_view locusName, Coordinates& locusCd) {
