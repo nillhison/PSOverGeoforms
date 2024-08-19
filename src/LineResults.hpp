@@ -11,24 +11,24 @@ class LineResults
     
     public:
     
-        LineResults(Line& line, Plane& plane) : m_line(line), pl(plane)
+        LineResults(Line& line, Plane& plane) : m_line(line), m_plane(plane)
         {
             m_line = line;
-            pl = plane;
-            rel_pos = CheckRelativePosition();
+            m_plane = plane;
+            relPos = CheckRelativePosition();
             
-            if(rel_pos != PERPENDICULAR) RenderPSPoints();
+            if(relPos != PERPENDICULAR) RenderPSPoints();
         }
         
         Line& ProjOnPlane()
         {
-            BuildLineGivenTwoPoints(pj_points[0], pj_points[1], m_projection);
+            BuildLineGivenTwoPoints(pjPoints[0], pjPoints[1], m_projection);
             return m_projection;
         }
 
         Line& Symmetric()
         {
-            buildLineGivenTwoPoints(sm_points[0], sm_points[1], m_symmetric);
+            BuildLineGivenTwoPoints(smPoints[0], smPoints[1], m_symmetric);
             return m_symmetric;
         }
 
@@ -44,39 +44,40 @@ class LineResults
         
         void RenderPSPoints()
         {
-            // Using t = 0 (this is the given point on the line itself)
-            PointResults<Plane> rp1(m_line.p, pl);
+            // Select two points on the line and project them as well as get its symmetric
+            
+            // First point: using t = 0 (this is the given point on the line itself)
+            PointResults<Plane> p1Results(m_line.p, m_plane);
                 
-            // Using t = 1 to render a second point p2 on the Line
+            // Second point: using t = 1 to render a second point p2 on the Line
             Coordinates p2 = {
                 m_line.p.x + m_line.d.x,
                 m_line.p.y + m_line.d.y,
                 m_line.p.z + m_line.d.z
             };
                 
-            PointResults<Plane> rp2(p2, pl);
+            PointResults<Plane> p2Results(p2, m_plane);
             
             // Store the points projections on the plan into a vector
-            pj_points.push_back(rp1.projOnPlane());
-            pj_points.push_back(rp2.projOnPlane());
+            pjPoints.push_back(p1Results.ProjOnPlane());
+            pjPoints.push_back(p2Results.ProjOnPlane());
 
             // Store the symmetric points into a vector
-            sm_points.push_back(rp1.symmetric());
-            sm_points.push_back(rp2.symmetric());
+            smPoints.push_back(p1Results.Symmetric());
+            smPoints.push_back(p2Results.Symmetric());
         }
         
         RelativePosition CheckRelativePosition()
         {
-            const double escalar_product = (m_line.d.x)*(pl.n.x) + (m_line.d.y)*(pl.n.y) + (m_line.d.z)*(pl.n.z);
-            const Coordinates vectorial_product
-            {
-                (m_line.d.y)*(pl.n.z) - (m_line.d.z)*(pl.n.y),
-                (m_line.d.z)*(pl.n.x) - (m_line.d.x)*(pl.n.z),
-                (m_line.d.x)*(pl.n.y) - (m_line.d.y)*(pl.n.x)
+            const double escalarProduct = (m_line.d.x)*(m_plane.n.x) + (m_line.d.y)*(m_plane.n.y) + (m_line.d.z)*(m_plane.n.z);
+            const Coordinates vectorialProduct {
+                (m_line.d.y)*(m_plane.n.z) - (m_line.d.z)*(m_plane.n.y),
+                (m_line.d.z)*(m_plane.n.x) - (m_line.d.x)*(m_plane.n.z),
+                (m_line.d.x)*(m_plane.n.y) - (m_line.d.y)*(m_plane.n.x)
             };
             
-            if(escalar_product == 0) return PARALLEL;
-            else if (vectorial_product == NULL_VECTOR) return PERPENDICULAR;
+            if(escalarProduct == 0) return PARALLEL;
+            else if (vectorialProduct == NULL_VECTOR) return PERPENDICULAR;
             else return OBLIQUE;
         }
         
@@ -87,9 +88,9 @@ class LineResults
         
     private:
     
-        Plane& pl;
+        Plane& m_plane;
         Line& m_line, m_projection, m_symmetric;
         RelativePosition relPos;
-        std::vector<Coordinates> pj_points;
-        std::vector<Coordinates> sm_points;
+        std::vector<Coordinates> pjPoints;
+        std::vector<Coordinates> smPoints;
 };

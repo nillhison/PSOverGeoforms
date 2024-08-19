@@ -5,8 +5,8 @@
 #include "LineResults.hpp"
 #include "Dialogs.hpp"
 
-void RunPointOverLine() {
-    
+void RunPointOverLine()
+{
     Coordinates* point = new Coordinates;
     Line* line = new Line;
     
@@ -14,16 +14,14 @@ void RunPointOverLine() {
     ReqLineData(*line);
     
     PointResults<Line> pointResults{*point, *line};
-    
     WritePointResults(pointResults.ProjOnLine(), pointResults.Symmetric());
     
     delete point;
     delete line;
-    
 }
 
-void RunPointOverPlane() {
-    
+void RunPointOverPlane()
+{
     Coordinates* point = new Coordinates;
     Plane* plane = new Plane;
     
@@ -31,16 +29,14 @@ void RunPointOverPlane() {
     ReqPlaneData(*plane);
     
     PointResults<Plane> pointResults{*point, *plane};
-    
     WritePointResults(pointResults.ProjOnPlane(), pointResults.Symmetric());
     
     delete point;
     delete plane;
-    
 }
 
-void RunLineOverPlane() {
-    
+void RunLineOverPlane()
+{
     Line* line = new Line;
     Plane* plane = new Plane;
     
@@ -48,14 +44,12 @@ void RunLineOverPlane() {
     ReqPlaneData(*plane);
     
     LineResults lineResults{*line, *plane};
-    
     LogAboutRelativePosition(lineResults.RelPos());
-    
-    if(lineResults.RelPos() != PERPENDICULAR) {
+    if(lineResults.RelPos() != PERPENDICULAR)
+    {
         WriteLineResults(lineResults.ProjOnPlane(), lineResults.Symmetric());
     }
     
     delete line;
     delete plane;
-    
 }

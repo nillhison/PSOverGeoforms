@@ -3,20 +3,19 @@
 #include <tuple>
 #include <string_view>
 
-struct Coordinates {
-    
+struct Coordinates
+{
     // Might be coordinates for a point or a vector
-    
     double x, y, z;
-    
-    bool operator==(const Coordinates& cd) const {
+    bool operator==(const Coordinates& cd) const
+    {
         return std::tie(x, y, z) == std::tie(cd.x, cd.y, cd.z);
     }
     
 };
 
-struct Line {
-    
+struct Line
+{
     /** Parametic equations:
      * 
      *  x = p.x + t * d.x
@@ -24,19 +23,17 @@ struct Line {
      *  z = p.z + t * d.z
      * 
      * Where t is a parameter **/
-    
     Coordinates p; // Point on the line
     Coordinates d; // Direction vector of the line
 };
 
-struct Plane {
-    
+struct Plane
+{
     /** Plane equation:
      * 
      *  x * n.x + y * n.y + z * n.z + k = 0
      * 
      * Where k is the plane's constant **/
-     
     double k; // Plane's constant
     Coordinates n; // Normal vector of the plane
 };
@@ -48,7 +45,8 @@ constexpr std::string_view locus[] {
     {"normal vector of the plane"}    // locus[3]
 };
 
-enum Operation {
+enum Operation
+{
     INITIAL,
     POINT_OVER_LINE,
     POINT_OVER_PLANE,
@@ -56,12 +54,11 @@ enum Operation {
     EXIT_APP
 };
 
-enum RelativePosition {
-    
+enum RelativePosition
+{
     /** Relative positions between the plane and the line.
      *  Used to filter the algorithm used to calculate
      *  the line projection and its symmetric **/
-     
     PARALLEL,
     PERPENDICULAR,
     OBLIQUE
