@@ -5,54 +5,54 @@
 #include "LineResults.hpp"
 #include "Dialogs.hpp"
 
-void runPointOverLine() {
+void RunPointOverLine() {
     
     Coordinates* point = new Coordinates;
     Line* line = new Line;
     
-    reqPointData(*point);
-    reqLineData(*line);
+    ReqPointData(*point);
+    ReqLineData(*line);
     
-    PointResults<Line> pointResults(*point, *line);
+    PointResults<Line> pointResults{*point, *line};
     
-    writePointResults(pointResults.projOnLine(), pointResults.symmetric());
+    WritePointResults(pointResults.ProjOnLine(), pointResults.Symmetric());
     
     delete point;
     delete line;
     
 }
 
-void runPointOverPlane() {
+void RunPointOverPlane() {
     
     Coordinates* point = new Coordinates;
     Plane* plane = new Plane;
     
-    reqPointData(*point);
-    reqPlaneData(*plane);
+    ReqPointData(*point);
+    ReqPlaneData(*plane);
     
-    PointResults<Plane> pointResults(*point, *plane);
+    PointResults<Plane> pointResults{*point, *plane};
     
-    writePointResults(pointResults.projOnPlane(), pointResults.symmetric());
+    WritePointResults(pointResults.ProjOnPlane(), pointResults.Symmetric());
     
     delete point;
     delete plane;
     
 }
 
-void runLineOverPlane() {
+void RunLineOverPlane() {
     
     Line* line = new Line;
     Plane* plane = new Plane;
     
-    reqLineData(*line);
-    reqPlaneData(*plane);
+    ReqLineData(*line);
+    ReqPlaneData(*plane);
     
-    LineResults lineResults(*line, *plane);
+    LineResults lineResults{*line, *plane};
     
-    logAboutRelativePosition(lineResults.relativePosition());
+    LogAboutRelativePosition(lineResults.RelPos());
     
-    if(lineResults.relativePosition() != PERPENDICULAR) {
-        writeLineResults(lineResults.projOnPlane(), lineResults.symmetric());
+    if(lineResults.RelPos() != PERPENDICULAR) {
+        WriteLineResults(lineResults.ProjOnPlane(), lineResults.Symmetric());
     }
     
     delete line;

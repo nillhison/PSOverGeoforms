@@ -7,16 +7,16 @@
 
 #include "GeoTypes.hpp"
 
-void clearEntries() {
+void ClearEntries() {
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
-Operation retrieveOperation(Operation& op) {
+Operation RetrieveOperation(Operation& op) {
     
     op = INITIAL;
     unsigned int attempts = 0;
-    unsigned int request;
+    unsigned int Request;
     const unsigned int maxAttempts = 5;
     
     while(op == INITIAL) {
@@ -27,20 +27,20 @@ Operation retrieveOperation(Operation& op) {
         std::cout << "(3) Line Over Plane" << std::endl;
         std::cout << "(4) Exit" << std::endl;
         std::cout << "Choose an operation: ";
-        std::cin >> request;
+        std::cin >> Request;
     
-        switch(request) {
+        switch(Request) {
             case 1 : op = POINT_OVER_LINE; break;
             case 2 : op = POINT_OVER_PLANE; break;
             case 3 : op = LINE_OVER_PLANE; break;
             case 4 : op = EXIT_APP; break;
             default : 
                 if(attempts > maxAttempts) {
-                    std::cout << "Aborting application due to unsuccessful request!" << std::endl;
+                    std::cout << "Aborting application due to unsuccessful Request!" << std::endl;
                     op = EXIT_APP;
                 } else {
                     std::cout << "Invalid Option! Try again" << std::endl;
-                    clearEntries();
+                    ClearEntries();
                     ++attempts;
                 }
         }
@@ -50,32 +50,33 @@ Operation retrieveOperation(Operation& op) {
     
 }
 
-bool newSection() {
+bool NewSection() {
     
-    char otherSection = 0;
+    char userAnwser = 0;
     bool newSection = false;
-    
-    while(otherSection != 'Y' && otherSection != 'N') {
+
+    while (userAnwser != 'Y' && userAnwser != 'N')
+    {
         std::cout << "Perform another operation (Y/N)?: ";
-        std::cin >> otherSection;
+        std::cin >> userAnwser;
         
-        otherSection = std::toupper(otherSection);
+        userAnwser = std::toupper(userAnwser);
     
-        if(otherSection == 'Y') {
+        if(userAnwser == 'Y') {
             newSection = true;
-        } else if(otherSection == 'N') {
+        } else if(userAnwser == 'N') {
             newSection = false;
         } else {
             std::cout << "Invalid Option! Try again" << std::endl;
             clearEntries();
         }
     }
-    
+
     return newSection;
     
 }
 
-void reqCoordinates(std::string_view locusName, Coordinates& locusCd) {
+void ReqCoordinates(std::string_view locusName, Coordinates& locusCd) {
 
     std::string axes[AXES];
     
@@ -103,22 +104,22 @@ void reqCoordinates(std::string_view locusName, Coordinates& locusCd) {
     
 }
 
-void reqPointData(Coordinates& pt) {
-    reqCoordinates(locus[0], pt);
+void ReqPointData(Coordinates& pt) {
+    ReqCoordinates(locus[0], pt);
 }
 
-void reqLineData(Line& ln) {
-    reqCoordinates(locus[1], ln.p);
-    reqCoordinates(locus[2], ln.d);
+void ReqLineData(Line& ln) {
+    ReqCoordinates(locus[1], ln.p);
+    ReqCoordinates(locus[2], ln.d);
 }
 
-void reqPlaneData(Plane& pl) {
-    reqCoordinates(locus[3], pl.n);
+void ReqPlaneData(Plane& pl) {
+    ReqCoordinates(locus[3], pl.n);
     std::cout << "Enter the plane constant value: ";
     std::cin >> pl.k;
 }
     
-void writePointResults(Coordinates& projection, Coordinates& symmetric) {
+void WritePointResults(Coordinates& projection, Coordinates& symmetric) {
     std::cout << "Coordinates for the point projection: " << std::endl;
     std::cout << "\tX: " << projection.x << std::endl;
     std::cout << "\tY: " << projection.y << std::endl;
@@ -130,7 +131,7 @@ void writePointResults(Coordinates& projection, Coordinates& symmetric) {
     std::cout << "\tZ: " << symmetric.z << std::endl;
 }
 
-void writeLineResults(Line& projection, Line& symmetric) {
+void WriteLineResults(Line& projection, Line& symmetric) {
     std::cout << "Parametric equations for the projection of the line: " << std::endl;
     std::cout << "\tX = " << projection.p.x << " + " << projection.d.x << "t" << std::endl;
     std::cout << "\tY = " << projection.p.y << " + " << projection.d.y << "t" << std::endl;
@@ -142,7 +143,7 @@ void writeLineResults(Line& projection, Line& symmetric) {
     std::cout << "\tZ = " << symmetric.p.z << " + " << symmetric.d.z << "t" << std::endl;
 }
 
-void logAboutRelativePosition(RelativePosition relPos) {
+void LogAboutRelativePosition(RelativePosition relPos) {
 
     switch(relPos) {
         case PERPENDICULAR: 

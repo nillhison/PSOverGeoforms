@@ -11,9 +11,9 @@ class LineResults
     
     public:
     
-        LineResults(Line& line, Plane& plane) : ln(line), pl(plane)
+        LineResults(Line& line, Plane& plane) : m_line(line), pl(plane)
         {
-            ln = line;
+            m_line = line;
             pl = plane;
             rel_pos = CheckRelativePosition();
             
@@ -22,14 +22,14 @@ class LineResults
         
         Line& ProjOnPlane()
         {
-            BuildLineGivenTwoPoints(pj_points[0], pj_points[1], pjL);
-            return pjL;
+            BuildLineGivenTwoPoints(pj_points[0], pj_points[1], m_projection);
+            return m_projection;
         }
 
         Line& Symmetric()
         {
-            buildLineGivenTwoPoints(sm_points[0], sm_points[1], smL);
-            return smL;
+            buildLineGivenTwoPoints(sm_points[0], sm_points[1], m_symmetric);
+            return m_symmetric;
         }
 
         void BuildLineGivenTwoPoints(Coordinates& p1, Coordinates& p2, Line& line)
@@ -45,13 +45,13 @@ class LineResults
         void RenderPSPoints()
         {
             // Using t = 0 (this is the given point on the line itself)
-            PointResults<Plane> rp1(ln.p, pl);
+            PointResults<Plane> rp1(m_line.p, pl);
                 
             // Using t = 1 to render a second point p2 on the Line
             Coordinates p2 = {
-                ln.p.x + ln.d.x,
-                ln.p.y + ln.d.y,
-                ln.p.z + ln.d.z
+                m_line.p.x + m_line.d.x,
+                m_line.p.y + m_line.d.y,
+                m_line.p.z + m_line.d.z
             };
                 
             PointResults<Plane> rp2(p2, pl);
@@ -67,12 +67,12 @@ class LineResults
         
         RelativePosition CheckRelativePosition()
         {
-            const double escalar_product = (ln.d.x)*(pl.n.x) + (ln.d.y)*(pl.n.y) + (ln.d.z)*(pl.n.z);
+            const double escalar_product = (m_line.d.x)*(pl.n.x) + (m_line.d.y)*(pl.n.y) + (m_line.d.z)*(pl.n.z);
             const Coordinates vectorial_product
             {
-                (ln.d.y)*(pl.n.z) - (ln.d.z)*(pl.n.y),
-                (ln.d.z)*(pl.n.x) - (ln.d.x)*(pl.n.z),
-                (ln.d.x)*(pl.n.y) - (ln.d.y)*(pl.n.x)
+                (m_line.d.y)*(pl.n.z) - (m_line.d.z)*(pl.n.y),
+                (m_line.d.z)*(pl.n.x) - (m_line.d.x)*(pl.n.z),
+                (m_line.d.x)*(pl.n.y) - (m_line.d.y)*(pl.n.x)
             };
             
             if(escalar_product == 0) return PARALLEL;
@@ -82,14 +82,14 @@ class LineResults
         
         RelativePosition RelPos()
         {
-            return rel_pos;
+            return relPos;
         }
         
     private:
     
         Plane& pl;
-        Line& ln, pjL, smL;
-        RelativePosition rel_pos;
+        Line& m_line, m_projection, m_symmetric;
+        RelativePosition relPos;
         std::vector<Coordinates> pj_points;
         std::vector<Coordinates> sm_points;
 };

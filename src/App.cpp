@@ -9,25 +9,25 @@ int main() {
         
     while(operation != EXIT_APP) {
         
-        retrieveOperation(operation);
+        RetrieveOperation(operation);
         
         switch(operation) {
             
             case INITIAL : continue;
             
             case POINT_OVER_LINE :
-                runPointOverLine();
-                if(!newSection()) operation = EXIT_APP;   
+                RunPointOverLine();
+                if(!NewSection()) operation = EXIT_APP;   
             break;
   
             case POINT_OVER_PLANE :
-                runPointOverPlane();
-                if(!newSection()) operation = EXIT_APP;
+                RunPointOverPlane();
+                if(!NewSection()) operation = EXIT_APP;
             break;
             
             case LINE_OVER_PLANE :
-                runLineOverPlane();
-                if(!newSection()) operation = EXIT_APP;  
+                RunLineOverPlane();
+                if(!NewSection()) operation = EXIT_APP;  
             break;
             
             case EXIT_APP : return 0;

@@ -9,47 +9,47 @@ class PointResults {
     
     public:
     
-        PointResults(Coordinates& point, T& geoform) : pt(point), gf(geoform) {
-            pt = point;
-            gf = geoform;
+        PointResults(Coordinates& point, T& geoform) : m_point(point), m_geoform(geoform) {
+            m_point = point;
+            m_geoform = geoform;
         };
         
-        Coordinates& projOnLine() {
-            tnum = (gf.d.x)*(pt.x - gf.p.x) + (gf.d.y)*(pt.y - gf.p.y) + (gf.d.z)*(pt.z - gf.p.z);
-            tden = pow(gf.d.x, 2) + pow(gf.d.y, 2) + pow(gf.d.z, 2);
+        Coordinates& ProjOnLine() {
+            tnum = (m_geoform.d.x)*(m_point.x - m_geoform.p.x) + (m_geoform.d.y)*(m_point.y - m_geoform.p.y) + (m_geoform.d.z)*(m_point.z - m_geoform.p.z);
+            tden = pow(m_geoform.d.x, 2) + pow(m_geoform.d.y, 2) + pow(m_geoform.d.z, 2);
             t = tnum/tden;
 
-            pjP.x = gf.p.x + t*(gf.d.x);
-            pjP.y = gf.p.y + t*(gf.d.y);
-            pjP.z = gf.p.z + t*(gf.d.z);
+            m_projection.x = m_geoform.p.x + t*(m_geoform.d.x);
+            m_projection.y = m_geoform.p.y + t*(m_geoform.d.y);
+            m_projection.z = m_geoform.p.z + t*(m_geoform.d.z);
             
-            return pjP;
+            return m_projection;
         };
         
-        Coordinates& projOnPlane() {
-            tnum = -(gf.k) - ((gf.n.x)*pt.x + (gf.n.y)*pt.y + (gf.n.z)*pt.z);
-            tden = pow(gf.n.x, 2) + pow(gf.n.y, 2) + pow(gf.n.z, 2);
+        Coordinates& ProjOnPlane() {
+            tnum = -(m_geoform.k) - ((m_geoform.n.x)*m_point.x + (m_geoform.n.y)*m_point.y + (m_geoform.n.z)*m_point.z);
+            tden = pow(m_geoform.n.x, 2) + pow(m_geoform.n.y, 2) + pow(m_geoform.n.z, 2);
             t = tnum/tden;
 
-            pjP.x = pt.x + t*(gf.n.x);
-            pjP.y = pt.y + t*(gf.n.y);
-            pjP.z = pt.z + t*(gf.n.z);
+            m_projection.x = m_point.x + t*(m_geoform.n.x);
+            m_projection.y = m_point.y + t*(m_geoform.n.y);
+            m_projection.z = m_point.z + t*(m_geoform.n.z);
             
-            return pjP;
+            return m_projection;
         };
         
-        Coordinates& symmetric() {
-            smP.x = 2*(pjP.x) - pt.x;
-            smP.y = 2*(pjP.y) - pt.y;
-            smP.z = 2*(pjP.z) - pt.z;
+        Coordinates& Symmetric() {
+            m_symmetric.x = 2*(m_projection.x) - m_point.x;
+            m_symmetric.y = 2*(m_projection.y) - m_point.y;
+            m_symmetric.z = 2*(m_projection.z) - m_point.z;
             
-            return smP;
+            return m_symmetric;
         };
         
     private:
         
-        T& gf;
-        Coordinates& pt, pjP, smP;
+        T& m_geoform;
+        Coordinates& m_point, m_projection, m_symmetric;
         double t, tnum, tden;
     
 };
