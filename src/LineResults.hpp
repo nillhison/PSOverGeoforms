@@ -6,40 +6,44 @@
 #include "GeoTypes.hpp"
 #include "PointResults.hpp"
 
-class LineResults {
+class LineResults
+{
     
     public:
     
-        LineResults(Line& line, Plane& plane) : ln(line), pl(plane) {
+        LineResults(Line& line, Plane& plane) : ln(line), pl(plane)
+        {
             ln = line;
             pl = plane;
+            rel_pos = CheckRelativePosition();
             
-            relPos = checkRelativePosition();
-            
-            if(relPos != PERPENDICULAR) renderPSPoints();
+            if(rel_pos != PERPENDICULAR) RenderPSPoints();
         }
         
-        Line& projOnPlane() {
-            buildLineGivenTwoPoints(pjPoints[0], pjPoints[1], pjL);
+        Line& ProjOnPlane()
+        {
+            BuildLineGivenTwoPoints(pj_points[0], pj_points[1], pjL);
             return pjL;
         }
 
-        Line& symmetric() {
-            buildLineGivenTwoPoints(smPoints[0], smPoints[1], smL);
+        Line& Symmetric()
+        {
+            buildLineGivenTwoPoints(sm_points[0], sm_points[1], smL);
             return smL;
         }
 
-        void buildLineGivenTwoPoints(Coordinates& p1, Coordinates& p2, Line& line) {
+        void BuildLineGivenTwoPoints(Coordinates& p1, Coordinates& p2, Line& line)
+        {
             line.p.x = p1.x;
             line.p.y = p1.y;
             line.p.z = p1.z;
-
             line.d.x = p2.x - p1.x;
             line.d.y = p2.y - p1.y;
             line.d.z = p2.z - p1.z;
         }
         
-        void renderPSPoints() {
+        void RenderPSPoints()
+        {
             // Using t = 0 (this is the given point on the line itself)
             PointResults<Plane> rp1(ln.p, pl);
                 
@@ -53,38 +57,39 @@ class LineResults {
             PointResults<Plane> rp2(p2, pl);
             
             // Store the points projections on the plan into a vector
-            pjPoints.push_back(rp1.projOnPlane());
-            pjPoints.push_back(rp2.projOnPlane());
+            pj_points.push_back(rp1.projOnPlane());
+            pj_points.push_back(rp2.projOnPlane());
 
             // Store the symmetric points into a vector
-            smPoints.push_back(rp1.symmetric());
-            smPoints.push_back(rp2.symmetric());
+            sm_points.push_back(rp1.symmetric());
+            sm_points.push_back(rp2.symmetric());
         }
         
-        RelativePosition checkRelativePosition() {
-            const double escalarProduct = (ln.d.x)*(pl.n.x) + (ln.d.y)*(pl.n.y) + (ln.d.z)*(pl.n.z);
-            
-            const Coordinates vectorialProduct {
+        RelativePosition CheckRelativePosition()
+        {
+            const double escalar_product = (ln.d.x)*(pl.n.x) + (ln.d.y)*(pl.n.y) + (ln.d.z)*(pl.n.z);
+            const Coordinates vectorial_product
+            {
                 (ln.d.y)*(pl.n.z) - (ln.d.z)*(pl.n.y),
                 (ln.d.z)*(pl.n.x) - (ln.d.x)*(pl.n.z),
                 (ln.d.x)*(pl.n.y) - (ln.d.y)*(pl.n.x)
             };
             
-            if(escalarProduct == 0) return PARALLEL;
-            else if (vectorialProduct == NULL_VECTOR) return PERPENDICULAR;
+            if(escalar_product == 0) return PARALLEL;
+            else if (vectorial_product == NULL_VECTOR) return PERPENDICULAR;
             else return OBLIQUE;
         }
         
-        RelativePosition relativePosition() {
-            return relPos;
+        RelativePosition RelPos()
+        {
+            return rel_pos;
         }
         
     private:
     
         Plane& pl;
         Line& ln, pjL, smL;
-        RelativePosition relPos;
-        std::vector<Coordinates> pjPoints;
-        std::vector<Coordinates> smPoints;
-        
+        RelativePosition rel_pos;
+        std::vector<Coordinates> pj_points;
+        std::vector<Coordinates> sm_points;
 };
