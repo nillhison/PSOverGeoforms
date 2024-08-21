@@ -69,14 +69,14 @@ class LineResults
         
         RelativePosition CheckRelativePosition()
         {
-            const double escalarProduct = (m_line.d.x)*(m_plane.n.x) + (m_line.d.y)*(m_plane.n.y) + (m_line.d.z)*(m_plane.n.z);
+            const double dotProduct = (m_line.d.x)*(m_plane.n.x) + (m_line.d.y)*(m_plane.n.y) + (m_line.d.z)*(m_plane.n.z);
             const Coordinates vectorialProduct {
                 (m_line.d.y)*(m_plane.n.z) - (m_line.d.z)*(m_plane.n.y),
                 (m_line.d.z)*(m_plane.n.x) - (m_line.d.x)*(m_plane.n.z),
                 (m_line.d.x)*(m_plane.n.y) - (m_line.d.y)*(m_plane.n.x)
             };
             
-            if(escalarProduct == 0) return PARALLEL;
+            if(dotProduct == 0) return PARALLEL;
             else if (vectorialProduct == NULL_VECTOR) return PERPENDICULAR;
             else return OBLIQUE;
         }

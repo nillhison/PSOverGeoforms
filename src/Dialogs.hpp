@@ -18,7 +18,7 @@ Operation RetrieveOperation(Operation& op)
     
     op = INITIAL;
     unsigned int attempts = 0;
-    unsigned int Request;
+    unsigned int request;
     const unsigned int maxAttempts = 5;
     
     while(op == INITIAL)
@@ -29,7 +29,7 @@ Operation RetrieveOperation(Operation& op)
         std::cout << "(3) Line Over Plane" << std::endl;
         std::cout << "(4) Exit" << std::endl;
         std::cout << "Choose an operation: ";
-        std::cin >> Request;
+        std::cin >> request;
     
         switch(Request)
         {
@@ -40,7 +40,7 @@ Operation RetrieveOperation(Operation& op)
             default : 
                 if(attempts > maxAttempts)
                 {
-                    std::cout << "Aborting application due to unsuccessful Request!" << std::endl;
+                    std::cout << "Aborting application due to unsuccessful request!" << std::endl;
                     op = EXIT_APP;
                 } else {
                     std::cout << "Invalid Option! Try again" << std::endl;
