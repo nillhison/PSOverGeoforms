@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "Dialogs.hpp"
 #include "PSOverGeoforms.hpp"
 
@@ -23,7 +21,6 @@ int main()
                 RunLineOverPlane();
                 if(!NewSection()) operation = EXIT_APP; break;
             case EXIT_APP : return 0;
-            
         };
     };
 }
